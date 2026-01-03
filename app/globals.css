@@ -2,36 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 @layer base {
   * {
-    @apply border-gray-800;
+    @apply border-white/[0.06];
+  }
+  
+  html {
+    @apply scroll-smooth;
   }
   
   body {
     @apply bg-background text-text-primary font-body antialiased;
+    /* Subtle background noise for premium texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-blend-mode: overlay;
+    background-size: 128px 128px;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-heading tracking-tight;
+  }
+  
+  /* Refined heading typography */
+  h1 { @apply text-[2.75rem] md:text-[3.5rem] leading-[1.08] font-semibold; }
+  h2 { @apply text-[2rem] md:text-[2.5rem] leading-[1.15] font-semibold; }
+  h3 { @apply text-xl leading-[1.3] font-semibold; }
+  
+  /* Body text refinement */
+  p, span, div {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  /* Premium card surface */
+  .surface-elevated {
+    @apply bg-surface/80 backdrop-blur-sm;
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 1px 2px rgba(0, 0, 0, 0.3),
+      0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .surface-elevated-hover {
+    @apply transition-all duration-300;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .surface-elevated-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 2px 4px rgba(0, 0, 0, 0.3),
+      0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Subtle separator */
+  .separator {
+    @apply h-px bg-white/[0.06];
+  }
+  
+  /* Input styling */
+  .input-field {
+    @apply w-full bg-background/60 border border-white/[0.08] rounded-xl px-4 py-3;
+    @apply text-text-primary placeholder:text-text-secondary/50;
+    @apply focus:outline-none focus:border-white/[0.15] focus:bg-background/80;
+    @apply transition-all duration-200;
   }
 }
 
 @layer utilities {
+  /* Refined text gradient - used sparingly */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent;
   }
   
-  .glow-primary {
-    box-shadow: 0 0 20px rgba(20, 241, 149, 0.3);
+  /* Subtle glow for active states only */
+  .glow-primary-subtle {
+    box-shadow: 0 0 24px rgba(20, 241, 149, 0.12);
   }
   
-  .glow-secondary {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  /* Premium easing for animations */
+  .ease-out-expo {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
   
-  .card-hover {
-    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-xl;
+  /* Numbers and data emphasis */
+  .text-data {
+    @apply font-mono tabular-nums tracking-tight font-medium;
+  }
+  
+  /* Muted text for secondary content */
+  .text-muted {
+    @apply text-text-secondary/80;
+  }
+  
+  /* Section spacing rhythm */
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+  
+  /* Container max-width consistency */
+  .container-tight {
+    @apply max-w-5xl mx-auto px-6;
+  }
+  
+  .container-wide {
+    @apply max-w-7xl mx-auto px-6;
   }
 }
