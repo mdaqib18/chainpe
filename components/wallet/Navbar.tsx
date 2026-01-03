@@ -17,23 +17,27 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-30 bg-background/80 backdrop-blur-lg border-b border-gray-800"
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-30 bg-background/70 backdrop-blur-xl border-b border-white/[0.04]"
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/">
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2"
+              whileHover={{ y: -1 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center gap-2.5"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg" />
-              <span className="text-xl font-heading font-bold">ChainPe</span>
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-background font-bold text-sm">C</span>
+              </div>
+              <span className="text-lg font-heading font-semibold text-text-primary">ChainPe</span>
             </motion.div>
           </Link>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => {
               if (item.requiresWallet && !connected) return null;
               
@@ -42,9 +46,12 @@ export default function Navbar() {
               return (
                 <Link key={item.path} href={item.path}>
                   <motion.span
-                    whileHover={{ y: -2 }}
-                    className={`text-sm font-medium transition-colors ${
-                      isActive ? 'text-primary' : 'text-text-secondary hover:text-text-primary'
+                    whileHover={{ y: -1 }}
+                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive 
+                        ? 'text-text-primary' 
+                        : 'text-text-secondary hover:text-text-primary'
                     }`}
                   >
                     {item.name}

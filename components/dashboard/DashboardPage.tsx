@@ -34,38 +34,39 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen py-12 px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen py-12 md:py-16 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center justify-between mb-12"
         >
           <div>
-            <h1 className="text-4xl font-heading font-bold mb-2">Your Subscriptions</h1>
-            <p className="text-text-secondary">Manage all your recurring payments in one place</p>
+            <h1 className="text-3xl font-heading font-semibold mb-1.5 tracking-tight">Your Subscriptions</h1>
+            <p className="text-text-secondary text-sm">Manage all your recurring payments in one place</p>
           </div>
           <Button onClick={() => setIsCreateModalOpen(true)}>
-            <Plus size={20} />
+            <Plus size={18} />
             New Subscription
           </Button>
         </motion.div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
           <Card delay={0}>
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary/10 rounded-lg">
-                <TrendingUp size={24} className="text-primary" />
+              <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center">
+                <TrendingUp size={20} className="text-primary" />
               </div>
               <div>
-                <p className="text-text-secondary text-sm mb-1">Active Subscriptions</p>
+                <p className="text-text-secondary text-xs mb-1">Active Subscriptions</p>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-3xl font-bold font-mono"
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="text-2xl font-semibold text-data"
                 >
                   {activeSubscriptions.length}
                 </motion.p>
@@ -73,18 +74,18 @@ export default function DashboardPage() {
             </div>
           </Card>
 
-          <Card delay={0.1}>
+          <Card delay={0.08}>
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-secondary/10 rounded-lg">
-                <DollarSign size={24} className="text-secondary" />
+              <div className="w-11 h-11 bg-surface-raised rounded-xl flex items-center justify-center">
+                <DollarSign size={20} className="text-text-secondary" />
               </div>
               <div>
-                <p className="text-text-secondary text-sm mb-1">Monthly Spend</p>
+                <p className="text-text-secondary text-xs mb-1">Monthly Spend</p>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-3xl font-bold font-mono"
+                  transition={{ duration: 0.4, delay: 0.25 }}
+                  className="text-2xl font-semibold text-data"
                 >
                   {formatCurrency(totalMonthlySpend)}
                 </motion.p>
@@ -92,23 +93,23 @@ export default function DashboardPage() {
             </div>
           </Card>
 
-          <Card delay={0.2}>
+          <Card delay={0.16}>
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-success/10 rounded-lg">
-                <Calendar size={24} className="text-success" />
+              <div className="w-11 h-11 bg-surface-raised rounded-xl flex items-center justify-center">
+                <Calendar size={20} className="text-text-secondary" />
               </div>
               <div>
-                <p className="text-text-secondary text-sm mb-1">Next Payment</p>
+                <p className="text-text-secondary text-xs mb-1">Next Payment</p>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="text-3xl font-bold font-mono"
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  className="text-2xl font-semibold text-data"
                 >
                   {nextPayment ? formatCurrency(nextPayment.amount) : '-'}
                 </motion.p>
                 {nextPayment && (
-                  <p className="text-text-secondary text-xs mt-1">
+                  <p className="text-text-secondary text-xs mt-0.5">
                     {nextPayment.serviceName}
                   </p>
                 )}
@@ -121,11 +122,11 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Subscriptions List */}
           <div className="lg:col-span-2 space-y-4">
-            <h2 className="text-2xl font-heading font-semibold mb-6">Active Subscriptions</h2>
+            <h2 className="text-lg font-heading font-semibold mb-5 text-text-primary">Active Subscriptions</h2>
             {activeSubscriptions.length === 0 ? (
               <Card hover={false}>
-                <div className="text-center py-12">
-                  <p className="text-text-secondary mb-4">No active subscriptions yet</p>
+                <div className="text-center py-14">
+                  <p className="text-text-secondary text-sm mb-5">No active subscriptions yet</p>
                   <Button onClick={() => setIsCreateModalOpen(true)}>
                     Create Your First Subscription
                   </Button>
@@ -136,7 +137,7 @@ export default function DashboardPage() {
                 <SubscriptionCard
                   key={subscription.id}
                   subscription={subscription}
-                  delay={index * 0.1}
+                  delay={index * 0.06}
                   onCancel={handleCancelSubscription}
                 />
               ))
@@ -145,7 +146,7 @@ export default function DashboardPage() {
 
           {/* Upcoming Payments Timeline */}
           <div>
-            <h2 className="text-2xl font-heading font-semibold mb-6">Upcoming Payments</h2>
+            <h2 className="text-lg font-heading font-semibold mb-5 text-text-primary">Upcoming Payments</h2>
             <UpcomingPaymentsTimeline payments={mockUpcomingPayments} />
           </div>
         </div>
